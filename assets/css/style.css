@@ -1,0 +1,49 @@
+* {
+  font-family: "poppins";
+}
+
+.desc-book {
+  overflow: hidden;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.heading-book {
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.table-head {
+  font-size: 14px;
+}
+
+.foreground {
+  position: relative;
+}
+
+.foreground::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../public/library.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(50%);
+  z-index: -10;
+}
+
+.btn-action {
+  height: 40px;
+  padding: 5px;
+}
