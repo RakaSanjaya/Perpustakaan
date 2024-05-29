@@ -1,3 +1,28 @@
+<?php
+session_start();
+require_once '../config/app.php';
+
+if (isset($_POST['loginAdmin'])) {
+    $id_petugas = mysqli_real_escape_string($db, $_POST['id_petugas']);
+    $password = mysqli_real_escape_string($db, $_POST['password']);
+    $result = mysqli_query($db, "SELECT * FROM petugas WHERE id_petugas = '$id_petugas'");
+    if (mysqli_num_rows($result) == 1) {
+        $hasil = mysqli_fetch_assoc($result);
+        if ($id_petugas == $hasil['id_petugas'] && $hasil['password'] == $password) {
+            $_SESSION['adminLogin'] = true;
+            $_SESSION['adminRole'] = $hasil['id_tugas'];
+            echo "<script>
+                alert('Login Admin Berhasil');
+                </script>";
+            header("Location: ../pages/dashboardAdmin/index.php");
+            exit;
+        } else {
+            $error = true;
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,32 +46,26 @@
             </div>
             <h1 class="pt-5 text-center fw-bold">Sign In Petugas</h1>
             <hr>
-            <form action="" method="post" class="row g-3 p-4 needs-validation" novalidate>
-                <label for="validationCustom01" class="form-label fw-bold">Nama Lengkap</label>
+            <form action="" method="POST" class="row g-3 p-4 needs-validation" novalidate>
+                <label for="validationCustom01" class="form-label fw-bold">ID_Petugas</label>
                 <div class="input-group mt-0">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                    <input type="text" class="form-control" name="nama_admin" id="validationCustom01" required>
-                    <div class="invalid-feedback">
-                        Masukkan Nama anda!
-                    </div>
+                    <input type="text" class="form-control" name="id_petugas" id="validationCustom01" required>
                 </div>
                 <label for="validationCustom02" class="form-label fw-bold">Password</label>
                 <div class="input-group mt-0">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
                     <input type="password" class="form-control" id="validationCustom02" name="password" required>
-                    <div class="invalid-feedback">
-                        Masukkan Password anda!
-                    </div>
                 </div>
                 <div class="col-12 d-flex gap-2 justify-content-end">
                     <a class="btn btn-danger" href="../index.php">Batal</a>
-                    <button class="btn btn-primary" type="submit" name="signIn">Sign In</button>
+                    <button class="btn btn-primary" type="submit" name="loginAdmin">Sign In</button>
                 </div>
             </form>
+            <?php if (isset($error)) : ?>
+                <div class="alert alert-danger mt-2" role="alert">Nama atau Password Salah!</div>
+            <?php endif; ?>
         </div>
-        <?php if (isset($error)) : ?>
-            <div class="alert alert-danger mt-2" role="alert">Nama atau Password Salah!</div>
-        <?php endif; ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

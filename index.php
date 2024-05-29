@@ -27,7 +27,6 @@
                 <a href="login/admin-login.php" class="btn btn-danger w-100 d-block py-3">Admin</a>
                 <a href="login/siswa-login.php" class="btn btn-success w-100 d-block py-3">Siswa</a>
             </div>
-            <p class="text-center mt-3">Belum punya akun? <a href="register.php" class="fw-bold">Register</a></p>
         </div>
     </section>
 </body>

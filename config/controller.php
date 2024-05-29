@@ -97,11 +97,10 @@ function edit_buku($post)
 function hapus_buku($id_buku)
 {
     global $db;
-
-    $cover = select("SELECT * FROM buku WHERE id_buku = $id_buku")[0];
+    $cover = select("SELECT * FROM buku WHERE id_buku = '$id_buku'")[0];
     unlink("../../assets/public/book/" . $cover['image']);
 
-    $query = "DELETE FROM buku WHERE id_buku = $id_buku";
+    $query = "DELETE FROM buku WHERE id_buku = '$id_buku'";
     mysqli_query($db, $query);
     return mysqli_affected_rows($db);
 }
@@ -119,6 +118,66 @@ function register_siswa($post)
     $password = password_hash($password, PASSWORD_DEFAULT);
 
     $query = "INSERT INTO siswa (`nama`, `nisn`, `kelas`, `jurusan`, `kelamin`, `telepon`, `password`) VALUES ('$nama', '$nisn', '$kelas', '$jurusan', '$kelamin', '$telepon', '$password')";
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
+function pinjam_buku($post)
+{
+    global $db;
+    $id_petugas = strip_tags($post['id_petugas']);
+    $id_siswa = strip_tags($post['nisn']);
+    $id_jurusan = strip_tags($post['id_jurusan']);
+    $id_buku = strip_tags($post['id_buku']);
+    $tgl_pinjam = strip_tags($post['tanggal_peminjaman']);
+    $tgl_kembali = strip_tags($post['tanggal_pengembalian']);
+    $query = "INSERT INTO peminjaman(`kode_petugas`,`kode_siswa`,`kode_jurusan`, `kode_buku`, `tgl_peminjaman`, `tgl_pengembalian`) VALUES ('$id_petugas', '$id_siswa','$id_jurusan', '$id_buku', '$tgl_pinjam', '$tgl_kembali')";
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
+function kembalikan_buku($post)
+{
+    global $db;
+    $id_peminjaman = strip_tags($post['id_peminjaman']);
+    $id_petugas = strip_tags($post['id_petugas']);
+    $id_siswa = strip_tags($post['nisn']);
+    $id_buku = strip_tags($post['id_buku']);
+    $tgl_pinjam = strip_tags($post['tanggal_peminjaman']);
+    $tgl_kembali = strip_tags($post['tanggal_pengembalian']);
+    $queryHistory = "INSERT INTO `history` (`id_peminjaman`,`kode_petugas`,`kode_siswa`, `kode_buku`, `tgl_peminjaman`, `tgl_pengembalian`) VALUES ('$id_peminjaman','$id_petugas', '$id_siswa', '$id_buku', '$tgl_pinjam', '$tgl_kembali')";
+    $queryDelete = "DELETE FROM `peminjaman` WHERE `id_peminjaman` = $id_peminjaman";
+    mysqli_query($db, $queryHistory);
+    mysqli_query($db, $queryDelete);
+    return mysqli_affected_rows($db);
+}
+
+function hapus_histori($id_history)
+{
+    global $db;
+    $query = "DELETE FROM `history` WHERE id_history = $id_history";
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+
+function ubah_data_mahasiswa($post)
+{
+    global $db;
+
+    $nama = strip_tags($post['nama']);
+    $nisn = strip_tags($post['nisn']);
+    $telepon = strip_tags($post['telepon']);
+    $kelas = strip_tags($post['kelas']);
+    $jurusan = strip_tags($post['jurusan']);
+    $password = strip_tags($post['passwordBaru']);
+
+    if (!empty($password)) {
+        $password = strip_tags($post['passwordLama']);
+    }
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $query = "UPDATE siswa SET `nama` = '$nama', `nisn` = '$nisn', `telepon` = '$telepon', `kelas` = '$kelas', `jurusan` = '$jurusan', `password` = '$password' WHERE `nisn` = '$nisn'";
+
     mysqli_query($db, $query);
     return mysqli_affected_rows($db);
 }

@@ -6,7 +6,6 @@ require_once '../config/app.php';
 if (isset($_POST['login'])) {
     $nisn = mysqli_real_escape_string($db, $_POST['nisn']);
     $password = mysqli_real_escape_string($db, $_POST['password']);
-
     $result = mysqli_query($db, "SELECT * FROM siswa WHERE nisn = '$nisn'");
 
     if (isset($_POST['login'])) {

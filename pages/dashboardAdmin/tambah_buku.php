@@ -17,62 +17,65 @@ if (isset($_POST['tambah_buku'])) {
 }
 ?>
 
-<section class="container">
-    <h1 class="fs-3 my-4">Tambah Buku</h1>
-    <hr>
-    <form method="post" class="" enctype="multipart/form-data">
-        <div class="d-flex gap-4">
-            <div class="input-group mb-3 w-50">
-                <span class="input-group-text fs-6" id="inputGroup-sizing-default">Judul Buku</span>
-                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="judul">
+<section>
+
+    <div class="d-flex">
+        <div class="w-25"><?php require_once "../../layouts/sidebar.php" ?></div>
+        <form method="post" class="w-75 mx-5 my-4" enctype="multipart/form-data">
+            <h1 class="fw-bold fs-3">Tambah Buku</h1>
+            <hr>
+            <div class="d-flex gap-4">
+                <div class="input-group mb-3 w-50">
+                    <span class="input-group-text fs-6" id="inputGroup-sizing-default">Judul Buku</span>
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="judul" required>
+                </div>
+                <div class="input-group mb-3 w-50">
+                    <label class="input-group-text" for="inputGroupSelect01">Kategori</label>
+                    <select class="form-select" id="inputGroupSelect01" name="kategori" required>
+                        <option selected>-- Pilih --</option>
+                        <option value="Bisnis">Bisnis</option>
+                        <option value="Filsafat">Filsafat</option>
+                        <option value="Informatika">Informatika</option>
+                        <option value="Novel">Novel</option>
+                        <option value="Sains">Sains</option>
+                    </select>
+                </div>
             </div>
-            <div class="input-group mb-3 w-50">
-                <label class="input-group-text" for="inputGroupSelect01">Kategori</label>
-                <select class="form-select" id="inputGroupSelect01" name="kategori">
-                    <option selected>-- Pilih --</option>
-                    <option value="Bisnis">Bisnis</option>
-                    <option value="Filsafat">Filsafat</option>
-                    <option value="Informatika">Informatika</option>
-                    <option value="Novel">Novel</option>
-                    <option value="Sains">Sains</option>
-                </select>
+            <div class="input-group mb-3">
+                <span class="input-group-text fs-6" id="inputGroup-sizing-default">ID Buku</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="id_buku" required>
             </div>
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text fs-6" id="inputGroup-sizing-default">ID Buku</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="id_buku">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text fs-6" id="inputGroup-sizing-default">Pengarang</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="pengarang">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text fs-6" id="inputGroup-sizing-default">Penerbit</span>
-            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="penerbit">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text fs-6" id="inputGroup-sizing-default">Tahun Terbit</span>
-            <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="tahun_terbit">
-        </div>
-        <div class="input-group mb-3">
-            <span class="input-group-text fs-6" id="inputGroup-sizing-default">Jumlah Halaman</span>
-            <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="halaman">
-        </div>
-        <div class="form-floating mb-3 ">
-            <textarea class="form-control col" placeholder="Sinopsis" id="floatingTextarea" name="sinopsis"></textarea>
-            <label for="floatingTextarea">Sinopsis</label>
-        </div>
-        <div class="input-group mb-3">
-            <input type="file" class="form-control" id="cover" name="cover" onchange="previewImg()">
-            <label class="input-group-text" for="cover">Upload Cover</label>
-        </div>
-        <img src="../../assets/public/book/<?= $data_buku['image']; ?>" alt="" class="img-thumbnail img-preview mt-2" width="100px" height="200px">
-        <div class="d-flex justify-content-end my-3 gap-2">
-            <a href="daftar_buku.php" onclick="return confirm('Apakah Anda Yakin Ingin Kembali?')" class="btn btn-danger">Kembali</a>
-            <button class="btn btn-warning" type="reset">Reset</button>
-            <button type="submit" class="btn btn-primary" name="tambah_buku">Tambah Buku</button>
-        </div>
-    </form>
+            <div class="input-group mb-3">
+                <span class="input-group-text fs-6" id="inputGroup-sizing-default">Pengarang</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="pengarang" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text fs-6" id="inputGroup-sizing-default">Penerbit</span>
+                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="penerbit" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text fs-6" id="inputGroup-sizing-default">Tahun Terbit</span>
+                <input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="tahun_terbit" required>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text fs-6" id="inputGroup-sizing-default">Jumlah Halaman</span>
+                <input type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" name="halaman" required>
+            </div>
+            <div class="form-floating mb-3 ">
+                <textarea class="form-control col" placeholder="Sinopsis" id="floatingTextarea" name="sinopsis" style="height:150px" required></textarea>
+                <label for="floatingTextarea">Sinopsis</label>
+            </div>
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="cover" name="cover" required onchange="previewImg()">
+                <label class="input-group-text" for="cover">Upload Cover</label>
+            </div>
+            <img src="../../assets/public/book/<?= $data_buku['image']; ?>" alt="" class="img-thumbnail img-preview mt-2" width="100px" height="200px">
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-danger" onclick="return confirm('Yakin ingin mereset?')" type="reset">Reset</button>
+                <button type="submit" class="btn btn-primary" name="tambah_buku">Tambah Buku</button>
+            </div>
+        </form>
+    </div>
 
 </section>
 <script>
@@ -100,3 +103,5 @@ if (isset($_POST['tambah_buku'])) {
         }
     }
 </script>
+
+<?php require_once("../../layouts/footer.php"); ?>
