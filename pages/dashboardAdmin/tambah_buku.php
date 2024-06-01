@@ -1,6 +1,23 @@
 <?php
+session_start();
 $title = "Tambah Buku";
 require_once("../../layouts/header.php");
+
+if (!isset($_SESSION['adminLogin'])) {
+    echo "<script>
+    alert('Anda harus login admin terlebih dahulu!');
+    document.location.href='../../index.php';
+     </script>";
+    exit;
+}
+
+if ($_SESSION['adminRole'] != 1 && $_SESSION['adminRole'] != 2) {
+    echo "<script>
+    alert('Role anda tidak sesuai!');
+    document.location.href='index.php';
+     </script>";
+    exit;
+}
 
 if (isset($_POST['tambah_buku'])) {
     if (tambah_buku($_POST) > 0) {

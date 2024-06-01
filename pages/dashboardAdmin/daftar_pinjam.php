@@ -3,6 +3,14 @@ session_start();
 $title = "Daftar Peminjaman Buku";
 require_once "../../layouts/header.php";
 
+if (!isset($_SESSION['adminLogin'])) {
+    echo "<script>
+    alert('Anda harus login admin terlebih dahulu!');
+    document.location.href='../../index.php';
+     </script>";
+    exit;
+}
+
 $daftar_peminjaman = select("SELECT * FROM `peminjaman` INNER JOIN `buku` ON peminjaman.kode_buku = buku.id_buku INNER JOIN `petugas` ON peminjaman.kode_petugas = petugas.id_petugas INNER JOIN `siswa` ON peminjaman.kode_siswa = siswa.nisn INNER JOIN `jurusan` ON peminjaman.kode_jurusan = jurusan.id_jurusan");
 ?>
 

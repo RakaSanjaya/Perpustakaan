@@ -1,5 +1,4 @@
 <?php
-$title = "Profile";
 require_once '../../config/app.php';
 ?>
 
@@ -23,8 +22,7 @@ require_once '../../config/app.php';
         <div class="w-100 mx-5 d-flex justify-content-between">
             <a class="navbar-brand fw-bold" href="#">Perpustakaan</a>
             <div class="d-flex align-items-center gap-4">
-                <a href="../../loginSystem/logout.php" class="btn btn-danger">Logout</a>
-                <a href="index.php" class="btn btn-primary">Dashboard</a>
+                <a href="../../loginSystem/logout.php" onclick="return confirm('Apakah anda yakin ingin keluar?')" class="btn btn-danger">Logout</a>
                 <img src="../../assets/icon/profil.png" alt="profil" width="40px">
             </div>
         </div>

@@ -1,22 +1,22 @@
 <?php
 session_start();
-$title = "History Peminjaman";
-require_once "../../layouts/header.php";
-
-if (!isset($_SESSION['adminLogin'])) {
+if (!isset($_SESSION['signIn'])) {
     echo "<script>
-    alert('Anda harus login admin terlebih dahulu!');
+    alert('Anda harus login terlebih dahulu!');
     document.location.href='../../index.php';
      </script>";
     exit;
 }
+$title = "History Peminjaman";
+require_once "../../layouts/header.php";
+$nisn = (int)$_SESSION['nisn'];
 
-$daftar_history = select("SELECT * FROM `history`");
+$daftar_history = select("SELECT * FROM `history` WHERE `kode_siswa` = $nisn");
 ?>
 
 <section>
     <div class="d-flex">
-        <div class="w-25"><?php require_once "../../layouts/sidebar.php" ?></div>
+        <div class="w-25"><?php require_once "../../layouts/sidebar_siswa.php" ?></div>
         <div class="w-75 mx-5 my-4">
             <h1 class="fw-bold fs-3">Keterangan Buku</h1>
             <hr>
@@ -30,9 +30,6 @@ $daftar_history = select("SELECT * FROM `history`");
                         <th scope="col">ID Buku</th>
                         <th scope="col">Tanggal Peminjaman</th>
                         <th scope="col">Tanggal Pengembalian</th>
-                        <?php if ($_SESSION['adminRole'] == 1) : ?>
-                            <th scope="col">Aksi</th>
-                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,11 +44,6 @@ $daftar_history = select("SELECT * FROM `history`");
                                 <td><?= $data['kode_buku']; ?></td>
                                 <td><?= $data['tgl_peminjaman']; ?></td>
                                 <td><?= $data['tgl_pengembalian']; ?></td>
-                                <?php if ($_SESSION['adminRole'] == 1) : ?>
-                                    <td>
-                                        <a href="hapus_histori.php?id_history=<?= $data['id_history'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
-                                    </td>
-                                <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
                     <?php else : ?>

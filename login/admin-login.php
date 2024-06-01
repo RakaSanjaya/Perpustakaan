@@ -10,6 +10,7 @@ if (isset($_POST['loginAdmin'])) {
         $hasil = mysqli_fetch_assoc($result);
         if ($id_petugas == $hasil['id_petugas'] && $hasil['password'] == $password) {
             $_SESSION['adminLogin'] = true;
+            $_SESSION['adminName'] = $hasil['nama_petugas'];
             $_SESSION['adminRole'] = $hasil['id_tugas'];
             echo "<script>
                 alert('Login Admin Berhasil');
@@ -27,8 +28,8 @@ if (isset($_POST['loginAdmin'])) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,36 +39,33 @@ if (isset($_POST['loginAdmin'])) {
     <title>Login Admin</title>
 </head>
 
-<body class="d-flex vh-100">
-    <div class="container justify-content-center align-content-center">
-        <div class="card w-50 p-2 mt-5 mx-auto rounded-5">
-            <div class="position-absolute top-0 start-50 translate-middle">
-                <img src="../assets/icon/profil.png" class="" alt="adminLogo" width="85px">
-            </div>
-            <h1 class="pt-5 text-center fw-bold">Sign In Petugas</h1>
-            <hr>
-            <form action="" method="POST" class="row g-3 p-4 needs-validation" novalidate>
-                <label for="validationCustom01" class="form-label fw-bold">ID_Petugas</label>
+<body>
+    <section class="d-flex">
+        <div class="w-50 d-flex align-items-center flex-column justify-content-center">
+            <h3 class="fw-bold">Selamat Datang</h3>
+            <p>Silahkan login sebagai admin</p>
+            <form action="" method="POST" class="row g-3 p-4 needs-validation w-50 shadow-sm mt-3">
+                <label for="validationCustom01" class="form-label fw-bold">ID Petugas</label>
                 <div class="input-group mt-0">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                    <input type="text" class="form-control" name="id_petugas" id="validationCustom01" required>
+                    <input type="number" class="form-control" name="id_petugas" required>
                 </div>
                 <label for="validationCustom02" class="form-label fw-bold">Password</label>
                 <div class="input-group mt-0">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
-                    <input type="password" class="form-control" id="validationCustom02" name="password" required>
+                    <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-lock"></i></span>
+                    <input type="password" class="form-control" name="password" required>
                 </div>
-                <div class="col-12 d-flex gap-2 justify-content-end">
-                    <a class="btn btn-danger" href="../index.php">Batal</a>
-                    <button class="btn btn-primary" type="submit" name="loginAdmin">Sign In</button>
-                </div>
+                <button class="btn btn-primary mt-3" type="submit" name="loginAdmin">Login</button>
+                <?php if (isset($error)) : ?>
+                    <div class="alert alert-danger mt-3" role="alert">Nisn / Password tidak sesuai!
+                    </div>
+                <?php endif; ?>
             </form>
-            <?php if (isset($error)) : ?>
-                <div class="alert alert-danger mt-2" role="alert">Nama atau Password Salah!</div>
-            <?php endif; ?>
         </div>
-    </div>
-
+        <div class="w-50">
+            <img src="../assets/public/library-admin.jpg" alt="" class="w-100 vh-100">
+        </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

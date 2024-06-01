@@ -2,37 +2,29 @@
 session_start();
 $title = "History Peminjaman";
 require_once "../../layouts/header.php";
-$nisn = (int)$_GET["nisn"];
+$nisn = (int)$_SESSION['nisn'];
 
-if (!isset($_SESSION['adminLogin'])) {
+if (!isset($_SESSION['signIn'])) {
     echo "<script>
-    alert('Anda harus login admin terlebih dahulu!');
+    alert('Anda harus login terlebih dahulu!');
     document.location.href='../../index.php';
      </script>";
     exit;
 }
-if ($_SESSION['adminRole'] != 1 && $_SESSION['adminRole'] != 3) {
-    echo "<script>
-    alert('Role anda tidak sesuai!');
-    document.location.href='index.php';
-     </script>";
-    exit;
-}
-
 $data_siswa = select("SELECT * FROM `siswa` INNER JOIN `jurusan` ON siswa.jurusan = jurusan.id_jurusan WHERE `nisn` = $nisn")[0];
 $list_jurusan = select("SELECT * FROM `jurusan`");
 
 if (isset($_POST["edit_data"])) {
-    if (ubah_data_mahasiswa($_POST) > 0) {
+    if (ubah_mahasiswa($_POST) > 0) {
         echo "<script>
-        alert('Data Berhasil Diubah');
-        document.location.href = 'akun_siswa.php';
-        </script>";
+    alert('Data Berhasil Diubah');
+    document.location.href = '../../loginSystem/logout.php';
+    </script>";
     } else {
         echo "<script>
-        alert('Data Gagal Diubah');
-        document.location.href = 'akun_siswa.php';
-        </script>";
+    alert('Data Gagal Diubah');
+    document.location.href = 'akun_siswa.php';
+    </script>";
     }
 }
 ?>
@@ -40,7 +32,7 @@ if (isset($_POST["edit_data"])) {
 
 <section>
     <div class="d-flex">
-        <div class="w-25"><?php require_once "../../layouts/sidebar.php" ?></div>
+        <div class="w-25"><?php require_once "../../layouts/sidebar_siswa.php" ?></div>
         <div class="w-75 mx-5 my-4">
             <h1 class="fw-bold fs-3">Ubah Data Mahasiswa</h1>
             <hr>

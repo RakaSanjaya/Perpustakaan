@@ -3,6 +3,14 @@ session_start();
 $title = "Daftar Buku";
 require_once "../../layouts/header.php";
 
+if (!isset($_SESSION['adminLogin'])) {
+    echo "<script>
+    alert('Anda harus login admin terlebih dahulu!');
+    document.location.href='../../index.php';
+     </script>";
+    exit;
+}
+
 if (isset($_POST['search'])) {
     $data_buku = select("SELECT * FROM `buku` WHERE judul LIKE '%$_POST[keyword]%'");
 } else {
@@ -35,8 +43,10 @@ if (isset($_POST['search'])) {
                             <li class="list-group-item fw-bold"><?= $buku["kategori"]; ?></li>
                         </ul>
                         <div class="card-body d-flex gap-2 justify-content-between align-items-center ">
-                            <a href="hapus_buku.php?id_buku=<?= $buku['id_buku'] ?>" class="btn btn-danger w-50 fs-6 fw-medium d-flex align-items-center justify-content-center btn-action" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
-                            <a href="detail_buku.php?id_buku=<?= $buku['id_buku'] ?>" class="btn btn-secondary w-50  d-flex align-items-center justify-content-center btn-action fs-6 fw-medium">Detail</a>
+                            <?php if ($_SESSION['adminRole'] != 3) : ?>
+                                <a href="hapus_buku.php?id_buku=<?= $buku['id_buku'] ?>" class="btn btn-danger fs-6 w-50 fw-medium d-flex align-items-center justify-content-center btn-action" onclick="return confirm('Apakah Anda Yakin Ingin Menghapus?')">Hapus</a>
+                            <?php endif; ?>
+                            <a href="detail_buku.php?id_buku=<?= $buku['id_buku'] ?>" class="btn btn-secondary  d-flex w-50 align-items-center justify-content-center btn-action fs-6 fw-medium">Detail</a>
                         </div>
                     </div>
                 <?php endforeach; ?>

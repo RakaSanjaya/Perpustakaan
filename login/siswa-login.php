@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once '../config/app.php';
 
@@ -11,22 +10,18 @@ if (isset($_POST['login'])) {
     if (isset($_POST['login'])) {
         if (mysqli_num_rows($result) == 1) {
             $hasil = mysqli_fetch_assoc($result);
-            if (password_verify($password, $hasil['password'])) {
+            if (password_verify($password, $hasil['password']) && $nisn == $_POST['nisn']) {
                 $_SESSION['signIn'] = true;
-                $_SESSION['siswa']['nisn'] = $hasil['nisn'];
-                $_SESSION['siswa']['nama'] = $hasil['nama'];
-                $_SESSION['siswa']['kelas'] = $hasil['kelas'];
-                $_SESSION['siswa']['jurusan'] = $hasil['jurusan'];
-                $_SESSION['siswa']['kelamin'] = $hasil['kelamin'];
-                $_SESSION['siswa']['telepon'] = $hasil['telepon'];
+                $_SESSION['namaSiswa'] = $hasil['nama'];
+                $_SESSION['nisn'] = $hasil['nisn'];
                 echo "<script>
-                alert('Login Berhasil');
+                alert('Login Siswa Berhasil');
                 </script>";
                 header("Location: ../pages/dashboardSiswa/index.php");
                 exit;
-            } else {
-                $error = true;
             }
+        } else {
+            $error = true;
         }
     }
 }
@@ -47,51 +42,33 @@ if (isset($_POST['login'])) {
     <title>Login Siswa</title>
 </head>
 
-<body class="d-flex vh-100">
-    <div class="container justify-content-center align-content-center my-5">
-        <div class="card p-2 w-50 mx-auto rounded-5">
-            <div class="position-absolute top-0 start-50 translate-middle">
-                <img src="../assets/icon/profil.png" alt="adminLogo" width="85px">
-            </div>
-            <h1 class="pt-5 text-center fw-bold">Sign In Siswa</h1>
-            <hr>
-            <form action="" method="post" class="row g-3 p-4 needs-validation" novalidate>
-                <label for="validationCustom01" class="form-label fw-bold">Nama Lengkap</label>
+<body>
+    <section class="d-flex">
+        <div class="w-50 d-flex align-items-center flex-column justify-content-center">
+            <h3 class="fw-bold">Selamat Datang</h3>
+            <p>Silahkan login sebagai siswa</p>
+            <form action="" method="POST" class="row g-3 p-4 needs-validation w-50 shadow-sm mt-3">
+                <label for="validationCustom01" class="form-label fw-bold">NISN</label>
                 <div class="input-group mt-0">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
-                    <input type="text" class="form-control" name="username" required>
-                    <div class="invalid-feedback">
-                        Masukkan Username
-                    </div>
-                </div>
-                <label for="validationCustom01" class="form-label fw-bold">nisn</label>
-                <div class="input-group mt-0">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-hashtag"></i></span>
                     <input type="number" class="form-control" name="nisn" required>
-                    <div class="invalid-feedback">
-                        Masukkan Nisn anda!
-                    </div>
                 </div>
                 <label for="validationCustom02" class="form-label fw-bold">Password</label>
                 <div class="input-group mt-0">
-                    <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-lock"></i></span>
+                    <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-lock"></i></span>
                     <input type="password" class="form-control" name="password" required>
-                    <div class="invalid-feedback">
-                        Masukkan Password anda!
+                </div>
+                <button class="btn btn-primary mt-3" type="submit" name="login">Login</button>
+                <?php if (isset($error)) : ?>
+                    <div class="alert alert-danger mt-3" role="alert">Nisn / Password tidak sesuai!
                     </div>
-                </div>
-                <div class="col-12 d-flex gap-2 justify-content-end">
-                    <a class="btn btn-danger" href="../index.php">Batal</a>
-                    <button class="btn btn-primary" type="submit" name="login">Sign In</button>
-                </div>
-                <p class="text-center fw-regular mt-5 ">Don't have an account yet? <a href="siswa-register.php" class="text-decoration-none text-primary fw-bold">Sign Up</a></p>
+                <?php endif; ?>
             </form>
         </div>
-        <?php if (isset($error)) : ?>
-            <div class="alert alert-danger mt-2" role="alert">Nama / Nisn / Password tidak sesuai !
-            </div>
-        <?php endif; ?>
-    </div>
+        <div class="w-50">
+            <img src="../assets/public/library-siswa.jpg" alt="" class="w-100 vh-100">
+        </div>
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 

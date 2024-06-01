@@ -55,3 +55,30 @@
 .header-top {
   height: 10vh;
 }
+
+.box-admin {
+  height: 100px;
+  width: 25%;
+  border-radius: 0px;
+}
+
+.box-admin:nth-child(1) {
+  background-color: #17f12a;
+  border: 5px solid rgb(10, 148, 10);
+  color:white
+}
+.box-admin:nth-child(2) {
+  background-color: #f15517;
+  border: 5px solid rgb(148, 19, 10);
+  color:white
+}
+.box-admin:nth-child(3) {
+  background-color: #17c5f1;
+  border: 5px solid rgb(10, 54, 148);
+  color:white
+}
+.box-admin:nth-child(4) {
+  background-color: #f1a517;
+  border: 5px solid rgb(148, 65, 10);
+  color:white
+}

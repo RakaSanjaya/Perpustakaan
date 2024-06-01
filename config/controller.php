@@ -171,11 +171,33 @@ function ubah_data_mahasiswa($post)
     $jurusan = strip_tags($post['jurusan']);
     $password = strip_tags($post['passwordBaru']);
 
-    if (!empty($password)) {
+    if (!$password) {
         $password = strip_tags($post['passwordLama']);
     }
 
     $password = password_hash($password, PASSWORD_DEFAULT);
+    $query = "UPDATE siswa SET `nama` = '$nama', `nisn` = '$nisn', `telepon` = '$telepon', `kelas` = '$kelas', `jurusan` = '$jurusan', `password` = '$password' WHERE `nisn` = '$nisn'";
+
+    mysqli_query($db, $query);
+    return mysqli_affected_rows($db);
+}
+function ubah_mahasiswa($post)
+{
+    global $db;
+
+    $nama = strip_tags($post['nama']);
+    $nisn = strip_tags($post['nisn']);
+    $telepon = strip_tags($post['telepon']);
+    $kelas = strip_tags($post['kelas']);
+    $jurusan = strip_tags($post['jurusan']);
+    $password = strip_tags($post['passwordBaru']);
+
+    if (!$password) {
+        $password = strip_tags($post['passwordLama']);
+    } else if ($password) {
+        $password = password_hash($password, PASSWORD_DEFAULT);
+    }
+
     $query = "UPDATE siswa SET `nama` = '$nama', `nisn` = '$nisn', `telepon` = '$telepon', `kelas` = '$kelas', `jurusan` = '$jurusan', `password` = '$password' WHERE `nisn` = '$nisn'";
 
     mysqli_query($db, $query);

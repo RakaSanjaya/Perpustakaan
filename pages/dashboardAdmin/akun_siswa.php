@@ -1,5 +1,12 @@
 <?php
 session_start();
+if (!isset($_SESSION['adminLogin'])) {
+    echo "<script>
+    alert('Anda harus login admin terlebih dahulu!');
+    document.location.href='../../index.php';
+     </script>";
+    exit;
+}
 $title = "Daftar Peminjaman Buku";
 require_once "../../layouts/header.php";
 $daftar_siswa = select("SELECT * FROM `siswa`, `jurusan` WHERE siswa.jurusan = jurusan.id_jurusan");
@@ -22,7 +29,9 @@ $daftar_siswa = select("SELECT * FROM `siswa`, `jurusan` WHERE siswa.jurusan = j
                         <th scope="col">Kelamin</th>
                         <th scope="col">Telepon</th>
                         <th scope="col">Password</th>
-                        <th scope="col">Aksi</th>
+                        <?php if ($_SESSION['adminRole'] == 1 || $_SESSION['adminRole'] == 3) : ?>
+                            <th scope="col">Aksi</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,9 +46,11 @@ $daftar_siswa = select("SELECT * FROM `siswa`, `jurusan` WHERE siswa.jurusan = j
                             <td><?= $data['kelamin']; ?></td>
                             <td><?= $data['telepon']; ?></td>
                             <td>Terenkripsi</td>
-                            <td>
-                                <a href="ubah_akun_siswa.php?nisn=<?= $data['nisn']; ?>" class="btn btn-primary btn-sm">Ubah</a>
-                            </td>
+                            <?php if ($_SESSION['adminRole'] == 1 || $_SESSION['adminRole'] == 3) : ?>
+                                <td>
+                                    <a href="ubah_akun_siswa.php?nisn=<?= $data['nisn']; ?>" class="btn btn-primary btn-sm">Ubah</a>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
