@@ -58,6 +58,7 @@ if (isset($_POST['login'])) {
                     <span class="input-group-text" id="basic-addon2"><i class="fa-solid fa-lock"></i></span>
                     <input type="password" class="form-control" name="password" required>
                 </div>
+                <p class="text-center">Don't have an Account? <a href="siswa-register.php" class="text-decoration-none fw-bold">Register</a></p>
                 <button class="btn btn-primary mt-3" type="submit" name="login">Login</button>
                 <?php if (isset($error)) : ?>
                     <div class="alert alert-danger mt-3" role="alert">Nisn / Password tidak sesuai!

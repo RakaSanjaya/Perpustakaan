@@ -36,15 +36,13 @@ if (isset($_POST['daftar'])) {
     <title>Login Siswa</title>
 </head>
 
-<body class="d-flex">
-    <div class="container justify-content-center align-content-center my-5">
-        <div class="card p-2 mt-5 w-50 mx-auto rounded-5">
-            <div class="position-absolute top-0 start-50 translate-middle">
-                <img src="../assets/icon/profil.png" alt="adminLogo" width="85px">
-            </div>
-            <h1 class="pt-5 text-center fw-bold">Sign Up Siswa</h1>
-            <hr>
-            <form action="" method="POST" class="row g-3 p-4 needs-validation" novalidate>
+<body>
+
+    <section class="d-flex justify-content-center" style="background-color: #f5f5f5;">
+        <div class="w-50 d-flex align-items-center flex-column justify-content-center">
+            <h3 class="fw-bold mt-5">Selamat Datang</h3>
+            <p>Silahkan register agar dapat login</p>
+            <form action="" method="POST" class="d-flex justify-content-center align-items-center row g-3 p-4 needs-validation w-75 shadow-sm mt-3 mb-5 bg-white">
                 <label for="validationCustom01" class="form-label fw-bold">Nama Lengkap</label>
                 <div class="input-group mt-0">
                     <span class="input-group-text" id="basic-addon1"><i class="fa-solid fa-user"></i></span>
@@ -100,11 +98,8 @@ if (isset($_POST['daftar'])) {
                 <p class="text-center fw-regular mt-5">Already Have an Account? <a href="siswa-login.php" class="text-decoration-none text-primary fw-bold">Sign In</a></p>
             </form>
         </div>
-        <?php if (isset($error)) : ?>
-            <div class="alert alert-danger mt-2" role="alert">Nama / Nisn / Password tidak sesuai !
-            </div>
-        <?php endif; ?>
-    </div>
+    </section>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>

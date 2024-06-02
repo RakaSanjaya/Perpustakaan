@@ -34,5 +34,5 @@
     <hr>
     <div class="dropdown">
         <strong><?= $_SESSION['namaSiswa']; ?></strong>
-    </div>a
+    </div>
 </div>
