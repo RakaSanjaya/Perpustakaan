@@ -18,7 +18,7 @@ if (isset($_POST["edit_data"])) {
     if (ubah_mahasiswa($_POST) > 0) {
         echo "<script>
     alert('Data Berhasil Diubah');
-    document.location.href = '../../loginSystem/logout.php';
+    document.location.href = '../../loginSystem/redirect.php';
     </script>";
     } else {
         echo "<script>

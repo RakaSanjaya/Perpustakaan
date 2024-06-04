@@ -69,7 +69,7 @@ $data_buku = select("SELECT * FROM buku WHERE id_buku = '$id_buku'")[0];
                 <img src="../../assets/public/book/<?= $data_buku['image']; ?>" class="w-25 rounded-3" alt="<?= $data_buku['image']; ?>">
             </div>
             <a href="daftar_buku.php" class="btn btn-danger me-2">Kembali</a>
-            <a href="edit_buku.php?id_buku=<?= $data_buku['id_buku']; ?>" class="btn btn-success">Edit</a>
+            <a href="edit_buku.php?id_buku=<?= $id_buku; ?>" class="btn btn-success">Edit</a>
         </div>
     </div>
 </section>

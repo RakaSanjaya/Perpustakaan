@@ -19,8 +19,8 @@ if ($_SESSION['adminRole'] != 1 && $_SESSION['adminRole'] != 2) {
     exit;
 }
 
-$id_buku = (int)$_GET["id_buku"];
-$data_buku = select("SELECT * FROM buku WHERE id_buku = $id_buku")[0];
+$id_buku = $_GET["id_buku"];
+$data_buku = select("SELECT * FROM buku WHERE id_buku = '$id_buku'")[0];
 
 if (isset($_POST["edit_buku"])) {
     if (edit_buku($_POST) > 0) {
